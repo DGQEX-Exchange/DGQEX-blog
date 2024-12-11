@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DGQEX - Professional Cryptocurrency Trading Platform</title>
+    <style>
+        /* Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            font-size: 62.5%;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f8f9fa;
+            font-size: 1.6rem;
+        }
+
+        /* Preloader */
+        .preloader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #0a0a0a;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 0.5s ease-in-out;
+        }
+
+        .loader {
+            width: 50px;
+            height: 50px;
+            border: 3px solid #ffffff;
+            border-top: 3px solid #3498db;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Navigation */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(10, 10, 10, 0.95);
+            padding: 2rem 0;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            color: #fff;
+            font-size: 2.4rem;
+            font-weight: 700;
+            text-decoration: none;
+            letter-spacing: -0.5px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 1.6rem;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: #3498db;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)),
+                        url('crypto-bg.jpg') center/cover;
+            display: flex;
+            align-items: center;
+            text-align: center;
+            color: #fff;
+            padding: 0 2rem;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .hero-content h1 {
+            font-size: 4.8rem;
+            margin-bottom: 2rem;
+            line-height: 1.2;
+        }
+
+        .hero-content p {
+            font-size: 2rem;
+            margin-bottom: 3rem;
+            opacity: 0.9;
+        }
+
+        /* Continue with more styles... */
+                /* Section Styles */
+                .section {
+            padding: 8rem 2rem;
+        }
+
+        .section-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 5rem;
+        }
+
+        .section-title h2 {
+            font-size: 3.6rem;
+            color: #1a1a1a;
+            margin-bottom: 1.5rem;
+        }
+
+        /* Features Grid */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 3rem;
+            margin-top: 4rem;
+        }
+
+        .feature-card {
+            background: #fff;
+            padding: 3rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .feature-card h3 {
+            font-size: 2.2rem;
+            margin-bottom: 1.5rem;
+            color: #1a1a1a;
+        }
+
+        .feature-card p {
+            color: #666;
+            line-height: 1.6;
+        }
+
+        /* FAQ Section */
+        .faq-section {
+            background: #f8f9fa;
+        }
+
+        .faq-item {
+            background: #fff;
+            margin-bottom: 2rem;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        .faq-question {
+            font-size: 2rem;
+            color: #1a1a1a;
+            margin-bottom: 1.5rem;
+            font-weight: 600;
+        }
+
+        .faq-answer {
+            color: #666;
+            line-height: 1.8;
+        }
+
+        /* Contact Section */
+        .contact-section {
+            background: #fff;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 4rem;
+        }
+
+        .contact-info {
+            text-align: center;
+        }
+
+        .contact-info h3 {
+            font-size: 2.2rem;
+            margin-bottom: 2rem;
+        }
+
+        .contact-info p {
+            color: #666;
+            margin-bottom: 1rem;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero-content h1 {
+                font-size: 3.6rem;
+            }
+
+            .hero-content p {
+                font-size: 1.8rem;
+            }
+
+            .section {
+                padding: 6rem 2rem;
+            }
+
+            .section-title h2 {
+                font-size: 3rem;
+            }
+        }
+
+    </style>
+</head>
+<body>
+    <!-- Preloader -->
+    <div class="preloader">
+        <div class="loader"></div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="#" class="logo">DGQEX</a>
+            <ul class="nav-links">
+                <li><a href="#about">About</a></li>
+                <li><a href="#features">Features</a></li>
+                <li><a href="#faq">FAQ</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <h1>DGQEX Exchange: A One-Stop Cryptocurrency Trading Solution</h1>
+            <p>Delivering Reliable Cryptocurrency Trading Services to Users Worldwide</p>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="section" id="about">
+        <div class="section-container">
+            <div class="section-title">
+                <h2>About DGQEX</h2>
+            </div>
+            <p>DGQEX is a globally leading cryptocurrency trading platform dedicated to providing secure and convenient digital asset trading services for individual investors and institutions. The platform supports trading for various mainstream and emerging cryptocurrencies, offering users a range of investment options, including spot trading, futures, and wealth management.</p>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="section" id="features">
+        <div class="section-container">
+            <div class="section-title">
+                <h2>Key Features</h2>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <h3>Secure Trading</h3>
+                    <p>Multi-factor authentication, cold wallet storage, and advanced encryption technology to ensure your assets are protected.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>Advanced Trading Tools</h3>
+                    <p>AI-driven smart trading tools and personalized analytics for precise investment decisions.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>Global Compliance</h3>
+                    <p>Licensed and regulated platform with strict adherence to AML and KYC regulations.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="section faq-section" id="faq">
+        <div class="section-container">
+            <div class="section-title">
+                <h2>Frequently Asked Questions</h2>
+            </div>
+            <div class="faq-item">
+                <h3 class="faq-question">Is Trading on DGQEX Safe?</h3>
+                <p class="faq-answer">DGQEX employs comprehensive security measures, including multi-factor authentication (2FA), cold wallet storage, and advanced encryption technology to protect user assets and information.</p>
+                <h3 class="faq-question">Is DGQEX a Scam or Legitimate?</h3>
+                <p class="faq-answer">DGQEX is a legitimate cryptocurrency trading platform that complies with regulatory requirements and ensures transparency through regular security audits and operational reports. DGQEX actively collaborates with regulatory authorities worldwide, strictly adhering to Anti-Money Laundering (AML) and Know Your Customer (KYC) regulations to provide users with a secure and legal trading environment. The platform has obtained licenses such as the U.S. MSB license and SEC certification.</p>
+                <h3 class="faq-question">How to Create an Account and Start Trading on DGQEX?</h3>
+                <p class="faq-answer">Users can register an account by visiting the DGQEX official website or downloading the mobile app. During registration, users must provide valid personal information and complete identity verification. After registration, users can deposit funds and select their preferred trading pairs to begin trading. DGQEX offers a user-friendly interface and detailed trading guides to help users get started with ease.</p>            
+                <h3 class="faq-question">Is There a Risk of Losing Principal When Using DGQEX?  </h3>
+                <p class="faq-answer">Yes, cryptocurrency trading carries high risks due to the market volatility and unpredictability. Users must fully understand market risks and their own risk tolerance when trading on DGQEX. To mitigate risks, users can adopt measures such as diversifying investments and setting stop-loss points. DGQEX also provides various risk management tools and educational resources to help users better manage risks.</p>
+            </div>
+            <!-- Add more FAQ items as needed -->
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="section contact-section" id="contact">
+        <div class="section-container">
+            <div class="section-title">
+                <h2>Contact Us</h2>
+            </div>
+            <div class="contact-grid">
+                <div class="contact-info">
+                    <h3>Online Support</h3>
+                    <p>24/7 customer service available through our online chat system</p>
+                </div>
+                <div class="contact-info">
+                    <h3>Email Support</h3>
+                    <p>support@dgqex.com</p>
+                </div>
+                <div class="contact-info">
+                    <h3>Social Media</h3>
+                    <p>Follow us on Twitter, Telegram, and Facebook</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- JavaScript -->
+    <script>
+        // Preloader
+        window.addEventListener('load', () => {
+            const preloader = document.querySelector('.preloader');
+            preloader.style.opacity = '0';
+            setTimeout(() => {
+                preloader.style.display = 'none';
+            }, 500);
+        });
+
+        // Smooth Scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Navbar Scroll Effect
+        window.addEventListener('scroll', () => {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 50) {
+                navbar.style.padding = '1.5rem 0';
+                navbar.style.background = 'rgba(10, 10, 10, 0.98)';
+            } else {
+                navbar.style.padding = '2rem 0';
+                navbar.style.background = 'rgba(10, 10, 10, 0.95)';
+            }
+        });
+    </script>
+</body>
+</html>
